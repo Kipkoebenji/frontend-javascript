@@ -1,49 +1,85 @@
-<!-- This is a simple HTML structure for a real estate website named "Makao". It
-includes a header with navigation links, a welcome message, a search section for
-properties, and input fields for property type, locations, and keywords. I will use the 12 grid to style the layout. -->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Makao</title>
-  </head>
-  <body>
-    <div>
-      <header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Makao - Find Your Perfect Home</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <i class="fas fa-map-marker-alt"></i>
         <h1>Makao</h1>
-        <nav>
-          <a href="#">Home</a>
-          <a href="#">Properties</a>
-          <a href="#">Members</a>
-          <a href="#">Pages</a>
-          <a href="#">Contact</a>
-          <a href="#">Login/Register</a>
-          <button>+ Create listing</button>
-        </nav>
-      </header>
-
-      <div>
-        <h2>It's Great to be home</h2>
       </div>
-
-      <div>
-        <h1>Find your perfect Home</h1>
+      <nav class="main-nav">
+        <a href="#">HOME</a>
+        <a href="#">PROPERTIES</a>
+        <a href="#">PAGES</a>
+        <a href="#">MEMBERS</a>
+        <a href="#">CONTACT</a>
+      </nav>
+      
+      <div class="header-actions">
+        <a href="#" class="phone"><i class="fas fa-phone"></i> (+88) 1990 6886</a>
+        <a href="#" class="login"><i class="fas fa-user"></i> Login / Register</a>
+        <button class="create-listing"><i class="fas fa-plus"></i> CREATE LISTING</button>
       </div>
+    </header>
 
-      <div>
-        <label for="type"> Type </label><br />
-        <input type="text" id="type" placeholder="Property Type" />
+    <main class="home">
+      <div class="hero-content">
+        <p class="subtitle">IT'S GREAT TO BE HOME!</p>
+        <h1 class="main-title">Find Your Perfect Home</h1>
+        
+        <div class="property-tabs">
+          <button class="tab active">Rent</button>
+          <button class="tab">Sale</button>
+          <button class="tab">Sold</button>
+        </div>
 
-        <label for="locations"> Locations </label><br />
-        <input type="text" id="locations" placeholder="Property Locations" />
+        <div class="search-container">
+          <div class="search-form">
+            <div class="form-group">
+              <label>TYPE</label>
+              <select>
+                <option>Property Type</option>
+                <option>House</option>
+                <option>Apartment</option>
+                <option>Villa</option>
+              </select>
+            </div>
 
-        <label for="search"> Search </label><br />
-        <input type="text" id="search" placeholder="Enter keywords" />
+            <div class="form-group">
+              <label>LOCATIONS</label>
+              <select>
+                <option>All Cities</option>
+                <option>New York</option>
+                <option>Los Angeles</option>
+                <option>Chicago</option>
+              </select>
+            </div>
 
-        <button>Search</button>
+            <div class="form-group">
+              <label>SEARCH</label>
+              <input type="text" placeholder="Enter keywords">
+            </div>
+
+            <div class="form-actions">
+              <a href="#" class="advanced-search">
+                <i class="fas fa-sliders-h"></i> Advanced Search
+              </a>
+              <button class="search-btn">
+                <i class="fas fa-search"></i> SEARCH
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </body>
+    </main>
+  </div>
+</body>
 </html>
