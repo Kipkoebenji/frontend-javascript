@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form validation</title>
+    <style>
+input {
+  padding: 8px;
+  width: 260px;
+  margin-bottom: 4px;
+}
+.error {
+  color: red;
+  margin: 0;
+}
+.ok {
+  color: green;
+  margin: 0;
+}
+.field {
+  margin-bottom: 12px;
+}
+</style>
+</head>
+<body>
+   <h2>Sign Up</h2>
+
+<form id="signupForm">
+
+<div class="field">
+  <label>Name:</label><br>
+  <input id="name" type="text" placeholder="Your name">
+  <p id="nameError" class="error"></p>
+</div>
+
+<div class="field">
+  <label>Email:</label><br>
+  <input id="email" type="text" placeholder="name@example.com">
+  <p id="emailError" class="error"></p>
+</div>
+
+<div class="field">
+  <label>Password:</label><br>
+  <input id="password" type="password" placeholder="Min 8 characters">
+  <p id="passwordError" class="error"></p>
+</div>
+
+<div class="field">
+  <label>Confirm Password:</label><br>
+  <input id="confirm" type="password" placeholder="Repeat password">
+  <p id="confirmError" class="error"></p>
+</div>
+
+<p><button type="submit">Create Account</button></p>
+
+</form>
+
+<p id="result"></p>
+
+<script>
+const form = document.getElementById('signupForm');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const confirmInput = document.getElementById('confirm');    
+const nameError = document.getElementById('nameError');
+const emailError = document.getElementById('emailError');
+const passwordError = document.getElementById('passwordError');
+const confirmError = document.getElementById('confirmError');
+const result = document.getElementById('result');   
+
+function showError(el, message) {
+  el.textContent = message;
+}
+
+function clearErrors(el) {
+    el.textContent = '';
+}
+
+function validateEmail(email) {
+  
+  if(email === '') {
+    showError(emailError, 'Email is required');
+    return false;
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showError(emailError, 'Email is not valid');
+    return false;
+  } else {
+    clearErrors(emailError);
+    return true;
+  }
+}
+
+function validatePassword(password) {
+  if(password === '') {
+    showError(passwordError, 'Password is required');
+    return false;
+  } else if (password.length < 8) {
+    showError(passwordError, 'Password must be at least 8 characters');
+    return false;
+  } else {
+    clearErrors(passwordError);
+    return true;
+  }
+}
+
+
+function validateConfirmPassword(password, confirm) {
+  if(confirm === '') {
+    showError(confirmError, 'Please confirm your password');
+    return false;
+  } else if (password !== confirm) {
+    showError(confirmError, 'Passwords do not match');
+    return false;
+  } else {
+    clearErrors(confirmError);
+    return true;
+  }
+}
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  const confirm = confirmInput.value;
+  
+  let isValid = true;
+  
+  if(name === '' || name.length < 2) {
+    showError(nameError, 'Name is required and must be at least 2 characters');
+    isValid = false;
+  } else {
+    clearErrors(nameError);
+  }
+  
+  if(!validateEmail(email)) {
+    isValid = false;
+  }
+  
+  if(!validatePassword(password)) {
+    isValid = false;
+  }
+  
+  if(!validateConfirmPassword(password, confirm)) {
+    isValid = false;
+  }
+  
+  if(isValid) {
+    result.textContent = 'Account created successfully!';
+    result.className = 'ok';
+    
+  } else {
+    result.textContent = '';
+    result.className = '';
+  }
+});
+
+</script>
+</body>
+</html>
