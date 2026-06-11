@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css";
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -25,20 +26,17 @@ export default function RegisterForm() {
 
       case "email":
         if (!value) return "Email is required";
-        if (!/\S+@\S+\.\S+/.test(value))
-          return "Please enter a valid email";
+        if (!/\S+@\S+\.\S+/.test(value)) return "Please enter a valid email";
         return "";
 
       case "password":
         if (!value) return "Password is required";
-        if (value.length < 8)
-          return "Password must be at least 8 characters";
+        if (value.length < 8) return "Password must be at least 8 characters";
         return "";
 
       case "confirmPassword":
         if (!value) return "Confirm your password";
-        if (value !== formData.password)
-          return "Passwords do not match";
+        if (value !== formData.password) return "Passwords do not match";
         return "";
 
       default:
@@ -94,9 +92,7 @@ export default function RegisterForm() {
 
     try {
       // Simulate API request
-      await new Promise((resolve) =>
-        setTimeout(resolve, 2000)
-      );
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       setSuccess("Account created successfully!");
 
@@ -118,17 +114,10 @@ export default function RegisterForm() {
 
   return (
     <div className="container">
-      <form
-        className="card"
-        onSubmit={handleSubmit}
-      >
+      <form className="card" onSubmit={handleSubmit}>
         <h1>Create Account</h1>
 
-        {success && (
-          <div className="success">
-            {success}
-          </div>
-        )}
+        {success && <div className="success">{success}</div>}
 
         {/* Full Name */}
         <div className="field">
@@ -143,12 +132,9 @@ export default function RegisterForm() {
             placeholder="John Doe"
           />
 
-          {touched.fullName &&
-            errors.fullName && (
-              <span className="error">
-                {errors.fullName}
-              </span>
-            )}
+          {touched.fullName && errors.fullName && (
+            <span className="error">{errors.fullName}</span>
+          )}
         </div>
 
         {/* Email */}
@@ -164,12 +150,9 @@ export default function RegisterForm() {
             placeholder="john@example.com"
           />
 
-          {touched.email &&
-            errors.email && (
-              <span className="error">
-                {errors.email}
-              </span>
-            )}
+          {touched.email && errors.email && (
+            <span className="error">{errors.email}</span>
+          )}
         </div>
 
         {/* Password */}
@@ -178,11 +161,7 @@ export default function RegisterForm() {
 
           <div className="password-wrapper">
             <input
-              type={
-                showPassword
-                  ? "text"
-                  : "password"
-              }
+              type={showPassword ? "text" : "password"}
               name="password"
               value={formData.password}
               onChange={handleChange}
@@ -192,74 +171,42 @@ export default function RegisterForm() {
 
             <button
               type="button"
-              onClick={() =>
-                setShowPassword(
-                  !showPassword
-                )
-              }
+              onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword
-                ? "Hide"
-                : "Show"}
+              {showPassword ? "Hide" : "Show"}
             </button>
           </div>
 
-          {touched.password &&
-            errors.password && (
-              <span className="error">
-                {errors.password}
-              </span>
-            )}
+          {touched.password && errors.password && (
+            <span className="error">{errors.password}</span>
+          )}
         </div>
 
         {/* Confirm Password */}
         <div className="field">
-          <label>
-            Confirm Password
-          </label>
+          <label>Confirm Password</label>
 
           <div className="password-wrapper">
             <input
-              type={
-                showConfirm
-                  ? "text"
-                  : "password"
-              }
+              type={showConfirm ? "text" : "password"}
               name="confirmPassword"
-              value={
-                formData.confirmPassword
-              }
+              value={formData.confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="••••••••"
             />
 
-            <button
-              type="button"
-              onClick={() =>
-                setShowConfirm(
-                  !showConfirm
-                )
-              }
-            >
-              {showConfirm
-                ? "Hide"
-                : "Show"}
+            <button type="button" onClick={() => setShowConfirm(!showConfirm)}>
+              {showConfirm ? "Hide" : "Show"}
             </button>
           </div>
 
-          {touched.confirmPassword &&
-            errors.confirmPassword && (
-              <span className="error">
-                {errors.confirmPassword}
-              </span>
-            )}
+          {touched.confirmPassword && errors.confirmPassword && (
+            <span className="error">{errors.confirmPassword}</span>
+          )}
         </div>
 
-        <button
-          className="submit-btn"
-          disabled={loading}
-        >
+        <button className="submit-btn" disabled={loading}>
           {loading ? (
             <>
               <span className="spinner"></span>
