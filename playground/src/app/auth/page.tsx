@@ -1,16 +1,30 @@
-"use client"
-import { useState } from "react";
+"use client";
+
+import {
+  useState,
+  type ChangeEvent,
+  type FocusEvent,
+  type FormEvent,
+} from "react";
+
+type FormField = "fullName" | "email" | "password" | "confirmPassword";
+type FormData = Record<FormField, string>;
+type FormErrors = Partial<Record<FormField, string>>;
+type FormTouched = Partial<Record<FormField, boolean>>;
+
+const isFormField = (name: string): name is FormField =>
+  ["fullName", "email", "password", "confirmPassword"].includes(name);
 
 export default function RegisterForm() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<FormTouched>({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,7 +45,7 @@ export default function RegisterForm() {
   const submitButtonClasses =
     "inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-sky-300 via-cyan-300 to-indigo-300 px-5 py-4 font-semibold text-slate-950 shadow-[0_16px_30px_rgba(116,200,255,0.24)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_rgba(116,200,255,0.3)] focus:outline-none focus:ring-4 focus:ring-sky-300/30 disabled:cursor-wait disabled:opacity-75";
 
-  const validateField = (name, value) => {
+  const validateField = (name: FormField, value: string) => {
     switch (name) {
       case "fullName":
         if (!value.trim()) return "Full name is required";
@@ -59,7 +73,7 @@ export default function RegisterForm() {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -68,8 +82,10 @@ export default function RegisterForm() {
     if (success) setSuccess("");
   };
 
-  const handleBlur = (e) => {
+  const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    if (!isFormField(name)) return;
 
     setTouched((prev) => ({
       ...prev,
@@ -83,9 +99,9 @@ export default function RegisterForm() {
   };
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: FormErrors = {};
 
-    Object.keys(formData).forEach((field) => {
+    (Object.keys(formData) as FormField[]).forEach((field) => {
       const error = validateField(field, formData[field]);
 
       if (error) {
@@ -98,7 +114,7 @@ export default function RegisterForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -106,7 +122,6 @@ export default function RegisterForm() {
     setLoading(true);
 
     try {
-      // Simulate API request
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       setSuccess("Account created successfully!");
